@@ -26,6 +26,14 @@ var app = new Vue({
 				event.stopPropagation();//注释掉这个的话，同样注册了click事件的父元素p跟div的单击事件也会执行
 			}
 			alert("我还是会弹出");
+		},
+		submit:function(){
+			alert('触发submit');
+		},
+		clean:function(id){
+			document.getElementById(id).value = "";
 		}
 	}
 });
+//v-on:keyup.f1
+Vue.config.keyCodes.f1 = 112

@@ -42,9 +42,22 @@
 				在监听键盘事件时，我们经常需要监测常见的键值。 Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：
 			</p>
 			<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
-			<input v-on:keyup.13="submit">
-			
+			<label for="">回车键的keycode为13</label>
+			<input v-on:keyup.13="submit" placeholder="按回车触发submit方法" 	>
+			<br />
+			<label for="">Vue为常用的keyCode提供了别名的方式v-on:keyup.enter 简写@keyup.enter</label>
+			<input type="text" v-on:keyup.enter="submit" placeholder="按回车触发submit方法"/>
+			<br />
+			<img src="img/7.jpg"/>
+			<br />
+			<p>尽量不要用F1这种快捷键，一般这种热键被浏览器占用了</p>
+			<input type="text" v-on:keyup.f1="submit" placeholder="按f1触发submit方法"/>
 			<p></p>
+			<img src="img/8.jpg"/>
+			<br />
+			<label for="input-clean">组合键</label>
+			<input type="text" id="input-clean" @keyup.alt.67="clean('input-clean')" placeholder="alt+c清除文本框内容"/>
+			<label for="input-clean2">结合click</label><input type="text" id="input-clean2" @click.alt="clean('input-clean2')" placeholder="还可以结合其他事件使用"/>
 		</div>
 	</body> 
 	<script type="text/javascript" src="js/demo6.js" ></script>
