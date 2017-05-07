@@ -8,7 +8,82 @@
 		<link rel="stylesheet" type="text/css" href="css/base_layout.css"/>
 	</head>
 	<body>
-
+		<div id="app1">
+			<h3>#组件</h3>
+			<p>
+				组件（Component）是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素， Vue.js 的编译器为它添加特殊功能。在有些情况下，组件也可以是原生 HTML 元素的形式，以 is 特性扩展。
+			</p>
+			<my-component></my-component>
+			
+			<my-childcomponent></my-childcomponent>
+			
+			<img src="img/9.jpg"/>
+			
+			
+			<table>
+			  <my-row></my-row>
+			  <my-component2></my-component2>
+			</table>
+			
+			<my-row></my-row>
+			
+			<p>看不懂DOM模版解析说明。</p>
+			
+			<h3>#组件中使用data</h3>
+			<p>data必需为函数，通过Vue构造器传入的各种选项大多数都可以在组件里用。 data 是一个例外，它必须是函数。 实际上，如果你这么做：</p>
+			<p v-pre>
+				vue.component('my-component', {
+				  template: '&lt;span &gt;{{ message }}&lt;/span &gt;',
+				  data: {
+				    message: 'hello'
+				  }
+				})
+			</p>
+			<p>那么 Vue 会停止，并在控制台发出警告，告诉你在组件中 data 必须是一个函数。</p>
+			<!--<my-component3></my-component3>-->  
+			
+		</div>
+		<p>可以这么做</p>
+		<div id="example-1">
+		  <simple-counter></simple-counter>
+		  <simple-counter></simple-counter>
+		  <simple-counter></simple-counter>
+		  <br />
+		  <simple-counter2></simple-counter2>
+		  <simple-counter2></simple-counter2>
+		  <simple-counter2></simple-counter2>
+		  
+		  
+		  <br />
+		  <h3>#使用 Prop 传递数据</h3>
+		  <p>
+		  	组件实例的作用域是孤立的。这意味着不能(也不应该)在子组件的模板内直接引用父组件的数据。要让子组件使用父组件的数据，我们需要通过子组件的props选项。
+		  </p>
+		  <p>
+				子组件要显式地用 props 选项声明它期待获得的数据：
+		  </p>
+		  <child message="hello"></child>
+		  
+		  
+		  
+		  <p>
+		  	HTML 特性是不区分大小写的。所以，当使用的不是字符串模版，camelCased (驼峰式) 命名的 prop 需要转换为相对应的 kebab-case (短横线隔开式) 命名：
+		  </p>
+		  <div v-pre>
+		  	Vue.component('child', {<br />
+			  &nbsp;&nbsp;&nbsp;&nbsp;// camelCase in JavaScript<br />
+			  &nbsp;&nbsp;&nbsp;&nbsp;props: ['myMessage'],<br />
+			  &nbsp;&nbsp;&nbsp;&nbsp;template: '&lt;span&gt;{{ myMessage }}&lt;/span&gt;'<br />
+			})
+		  </div>
+		  <div v-pre>
+			  	&lt;!-- kebab-case in HTML --&gt;
+			  	<br />
+				&lt;child my-message="hello!"&gt;&lt;"/child&gt;
+		  </div>
+		  
+		  
+		</div>
 	</body> 
 	<script type="text/javascript" src="js/demo8.js" ></script>
 </html>
