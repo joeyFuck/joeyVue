@@ -43,6 +43,10 @@
 			<!--<my-component3></my-component3>-->  
 			
 		</div>
+		
+		
+		
+		
 		<p>可以这么做</p>
 		<div id="example-1">
 		  <simple-counter></simple-counter>
@@ -75,14 +79,26 @@
 			  &nbsp;&nbsp;&nbsp;&nbsp;props: ['myMessage'],<br />
 			  &nbsp;&nbsp;&nbsp;&nbsp;template: '&lt;span&gt;{{ myMessage }}&lt;/span&gt;'<br />
 			})
-		  </div>
+		  </div> 
 		  <div v-pre>
 			  	&lt;!-- kebab-case in HTML --&gt;
 			  	<br />
 				&lt;child my-message="hello!"&gt;&lt;"/child&gt;
 		  </div>
+		  <h3>#动态Prop</h3>
+		  <p>在模板中，要动态地绑定父组件的数据到子模板的props，与绑定到任何普通的HTML特性相类似，就是用 v-bind。每当父组件的数据变化时，该变化也会传导给子组件：</p>
+		  <input type="text" name="" id="" v-model="parentMsg" />
 		  
-		  
+		  <child v-bind:message="parentMsg"></child>
+		  <h3>上面两个prop的使用，就会引起一个疑惑，变量是字面量还是data中定义的变量（动态语法）如何区别呢？</h3>
+		  <p>其实是绑定方式的区别，如&lt;child message="parentMsg"&gt;&lt;/child&gt;就是绑定的字面量，组件中prop-message对应的值就是字符串parentMsg</p>
+		  <p>&lt;child v-bind:message="parentMsg"&gt;&lt;/child&gt; 则不同，组件中prop-message绑定的为data中定义的变量parentMsg</p>
+		
+		 <p><img src="img/10.jpg"/></p>
+		 <p><img src="img/11.png"/></p>
+		 <p><img src="img/12.png"/></p>
+		 
+		 
 		</div>
 	</body> 
 	<script type="text/javascript" src="js/demo8.js" ></script>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/base_layout.css" />
+	</head>
+
+	<body>
+
+		<h3>#自定义事件--官方文档到这里开始有点瞎搞了，概念一带而过。下面是自己总结的</h3>
+		<p>我们知道，父组件是使用 props 传递数据给子组件，但如果子组件要把数据传递回去，应该怎样做？那就是自定义事件!</p>
+		<p id="joeyTitle">子组件中v-on:自定义事件名称="对应触发的事件（方法）"</p>
+		<p>this.$emit('自定义事件名称');进行自定义事件提交</p>
+		<div id="counter-event-example">
+			<label for="">作为自定义事件可视化结果的total：</label>{{ total }}
+			<p></p>
+			<label for="">未绑定自定义事件</label>
+			<button-counter></button-counter>
+			<p>绑定自定义事件v-on:myincrement="incrementTotal1" 触发的事件为incrementTotal1</p>
+			<label for="">绑定兼注册自定义事件v-on:myincrement="incrementTotal1"</label>
+			<button-counter v-on:myincrement="incrementTotal1"></button-counter>
+			<label for="">绑定兼注册自定义事件v-on:myincrement="incrementTotal2"</label>
+			<button-counter v-on:myincrement="incrementTotal2"></button-counter>
+		</div>
+
+		<h3>#给组件绑定原生事件(如click)</h3>
+		<p>可以使用 .native 修饰 v-on 如下</p>
+		<div id="example1">
+			<p>先将组件中的变量counter与Vue中的total进行绑定，v-bind:counter="total" ;然后进行原生事件（click）的事件绑定：v-on:click.native="doTheThing"</p>
+			<my-component v-bind:counter="total" v-on:click.native="doTheThing"></my-component>
+		</div>
+
+		<h3>#使用自定义事件的表单输入组件</h3>
+		<div id="price-example">
+			<!--<currency-input v-model="price"></currency-input>-->
+			<currency-simple v-model="price"></currency-simple>
+		</div>
+
+		<h4>当然，上面的例子是比较幼稚的。 比如，用户甚至可以输入多个小数点或句号 - 哦哦！因此我们需要一个更有意义的例子，下面是一个更加完善的货币过滤器：</h4>
+		<script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/98739fb8ac6779cb2da11aaa9ab6032e52f3be00/currency-validator.js"></script>
+		<div id="app">
+			<currency-input label="Price" v-model="price"></currency-input>
+			<currency-input label="Shipping" v-model="shipping"></currency-input>
+			<currency-input label="Handling" v-model="handling"></currency-input>
+			<currency-input label="Discount" v-model="discount"></currency-input>
+
+			<p>Total: ${{ total }}</p>
+		</div>
+		
+		<h3>#非父子组件通信</h3>
+		<p>有时候两个组件也需要通信(非父子关系)。在简单的场景下，可以使用一个空的 Vue 实例作为中央事件总线：</p>
+		<h5>然而并看不懂，翻译小编食屎啦~~~</h5>
+		<p><img src="img/13.png"/></p>
+		
+		
+		<h3>#使用 Slot 分发内容</h3>
+		<p>在使用组件时，我们常常要像这样组合它们：</p>
+		<p>
+			<div v-pre>
+				&lt;app&gt;<br /> 
+				  &lt;app-header&gt;&lt;/app-header&gt;	<br />
+				  &lt;app-footer&gt;&lt;/app-footer&gt;<br />
+				&lt;/app&gt;
+			</div>
+		</p>
+        <h4>
+        	<ol>
+        		<p>注意2点：</p>
+        		<li>&lt;app&gt; 组件不知道它的挂载点会有什么内容。挂载点的内容是由&lt;app&gt;的父组件决定的。</li>
+        		<li>&lt;app&gt; 组件很可能有它自己的模版。</li>
+        	</ol>
+        </h4>
+ 		<p>
+ 			为了让组件可以组合，我们需要一种方式来混合父组件的内容与子组件自己的模板。这个过程被称为 内容分发 (或 “transclusion” 如果你熟悉 Angular)。Vue.js 实现了一个内容分发 API ，参照了当前 Web 组件规范草案，使用特殊的 &lt;slot&gt; 元素作为原始内容的插槽。
+ 		</p>
+       
+		<h3>#编译作用域</h3>
+		<p>
+			<img src="img/14.jpg"/>
+		</p>
+        <div id="childVue">
+         	<child-component></child-component>	
+         	
+         	
+         	<h3>#单个slot</h3>
+         	<h4>
+         		哇，终于搞清楚父组件，子组件是什么玩意儿了。写文档的小编真的，无力吐槽：
+         	</h4>
+         	<ol>
+         		<li>
+         			<parent-compo></parent-compo>
+         		</li>
+         		<li>
+         			<parent2-compo></parent2-compo>
+         		</li>
+         		<li>
+         			<child-compo></child-compo>
+         		</li>
+         		<li>
+         			<child-compo>我这里写的也算是父组件的分发内容？</child-compo>
+         		</li>
+         	</ol>
+         	<p>
+         		1、最简单容易理解的例子就是定义两个组件，如下：
+         		<p>
+         			组件一：child-component,template:&lt;div&gt;&lt;/div&gt;
+         		</p>
+         		<p>
+         			组件二：parent-component,template:&lt;div&gt; &lt;child-component&gt;&lt;/child-component&gt; &lt;/div&gt;
+         		</p>
+         		<p>
+         			这是在我看来最容易理解的父子组件的关系，与其说是父子组件，不如把template看做主体。父template中使用了子template。
+         		</p>
+         		<p>进一步理解，在使用父组件的时候，可以添加内容，如 myhtml:&lt;parent-component&gt;我的添加的内容&lt;/parent-component&gt;</p>
+         		<p>这样一来，其实上文的myhtml也相当于是一个template，现在再来理一下关系，还是从template的角度出发。</p>
+         		<p>儿子：名称：child-component ;   template:&lt;div&gt;&lt;/div&gt;</p>
+         		<p>爸爸：名称：parent-component ;  template：&lt;div&gt; &lt;child-component&gt;&lt;/child-component&gt; &lt;/div&gt;</p>
+         		<p><b>爷爷：名称：匿名  ;           template：&lt;parent-component&gt;我的添加的内容&lt;/parent-component&gt;</b></p>
+         		<p>作为儿子的存在，如果直接在html中这样使用组件child-component：&lt;child-component&gt;我的添加的内容&lt;/child-component&gt;那这位（这个template）的角色按照我们上文的理解，应该算是...嗯，干爹！</p>
+         		<p>干爹：名称：匿名 ；  template：&lt;child-component&gt;我的添加的内容&lt;/child-component&gt;</p>
+         		<p>个人认为：理解上面的关系对于Vue.js中理解组件的相关知识很重要。比如下面的slot就很容易理解</p>
+         		<p>然后针对“我的添加的内容”有一个问题，上文的家族成员的template都很为简洁，现在比如将儿子的template换成：</p>
+         		<p>&lt;div&gt;&lt;div&gt; <p style="color: mediumvioletred;">div1</p>&lt;/div&gt;&lt;div&gt;<p style="color: mediumvioletred;">div2</p>&lt;/div&gt;&lt;/div&gt;</p>
+         		<p>这样我们的父template在使用的时候：&lt;div&gt; &lt;child-component&gt;我的添加的内容&lt;/child-component&gt; &lt;/div&gt;中“我的添加的内容”该在子template中何处渲染呢？</p>
+         		<p>Vue.js引入一个标签&lt;slot&gt;进行占位操作，如将我们的子tenplate改为：</p>
+         		<p>&lt;div&gt;&lt;div&gt; <p style="color: mediumvioletred;">&lt;slot&gt;div1&lt;/slot&gt;</p>&lt;/div&gt;&lt;div&gt;<p style="color: mediumvioletred;">div2</p>&lt;/div&gt;&lt;/div&gt;</p>
+         		<p>现在我们父template渲染的时候，“我的添加的内容”就会找到slot这个标签所在的位置，进行替换。渲染结果：</p>
+         		<p>
+         			&lt;div&gt;
+         			&lt;div&gt;&lt;div&gt; <p style="color: mediumvioletred;">我的添加的内容</p>&lt;/div&gt;&lt;div&gt;<p style="color: mediumvioletred;">div2</p>&lt;/div&gt;&lt;/div&gt;
+         			&lt;/div&gt;
+         		</p>
+         		<p>在此基础上，标签slot还可以用一个特殊的属性 name来进行标示，这样一来，我们就可以有多个slot，也就是多个占位了。好处是显而易见的。</p>
+         		<p>官方文档例子：</p>
+         		<p>
+         			<img src="img/15.png"/>
+         		</p>
+         	</p>
+         	
+         	
+         	<h3>#keep-alive</h3>
+         	<p>
+         		<img src="img/16.png"/>
+         	</p>
+        </div>
+        <!--<child-component></child-component> 组件的使用一定要在某个Vue作用域内-->	
+        
+        
+        
+	</body>
+	<script type="text/javascript" src="js/demo9.js"></script>
+</html>
