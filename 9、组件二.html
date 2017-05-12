@@ -133,7 +133,16 @@
          			&lt;div&gt;&lt;div&gt; <p style="color: mediumvioletred;">我的添加的内容</p>&lt;/div&gt;&lt;div&gt;<p style="color: mediumvioletred;">div2</p>&lt;/div&gt;&lt;/div&gt;
          			&lt;/div&gt;
          		</p>
-         		<p>在此基础上，标签slot还可以用一个特殊的属性 name来进行标示，这样一来，我们就可以有多个slot，也就是多个占位了。好处是显而易见的。</p>
+         		<p>父子组件除了上面的关系外，还有一种形式；vue对象作为父组件，如果按照我说的以template来理解父子组件，这个形式也很好理解。</p>
+         		<p>组件使用有一个前提，那就是必须在某个Vue实例的作用域内。如：</p>
+         		<p>
+         			&lt;div id = "vueEl"&gt;<br />
+         			&lt;my-component&gt;&lt;/my-component&gt;<br />
+         			&lt;/div&gt;<br />
+         		</p>
+         		<p>这样一来，其实我们可以这么来看，id="vueEl"这个相当于Vue的一个对象实例，其包括的所有内容组成了一个template，也就是说，这个template或者说这个父组件是所有在这个Vue实例下的组件的父组件，简称：祖宗组件</p>
+         		
+         		<p>再看slot，在上面的基础上，标签slot还可以用一个特殊的属性 name来进行标示，这样一来，我们就可以有多个slot，也就是多个占位了。好处是显而易见的。</p>
          		<p>官方文档例子：</p>
          		<p>
          			<img src="img/15.png"/>
