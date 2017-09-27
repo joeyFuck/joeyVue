@@ -1,0 +1,51 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<div id="app">
+  <h1>Hello App!</h1>
+  <p> 
+    <router-link to="/foo">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+    <router-link to="/user/001">Go to 001</router-link>
+    <router-link to="/user/002">Go to 002</router-link>
+  </p> 
+  <router-view></router-view>
+</div>
+
+<script>
+ 
+const Foo = { template: '<div>foo</div>' }
+const Bar = { template: '<div>bar</div>' }
+const User = {
+    template: '<div>User {{ $route.params.id }}</div>',
+//     提醒一下，当使用路由参数时，例如从 /user/001 导航到 user/002，原来的组件实例会被复用。因为两个路由都渲染同个组件，比起销毁再创建，复用则显得更加高效。不过，这也意味着组件的生命周期钩子不会再被调用。
+// 复用组件时，想对路由参数的变化作出响应的话，你可以简单地 watch（监测变化） $route 对象：
+    watch: {
+    '$route' (to, from) {
+      // 对路由变化作出响应...
+      console.log(to);
+      console.log(from); 
+        // from objA to objB
+    }
+  }
+}
+ 
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar },
+  { path: '/user/:id', component: User }
+]
+ 
+const router = new VueRouter({
+  routes 
+})
+ 
+const app = new Vue({
+  router
+}).$mount('#app')
+ 
+</script>
+
+<!-- 模式 	                       匹配路径 	           $route.params -->
+<!-- /user/:username 	            /user/evan 	            { username: 'evan' } -->
+<!-- /user/:username/post/:post_id 	/user/evan/post/123 	{ username: 'evan', post_id: 123 } -->
