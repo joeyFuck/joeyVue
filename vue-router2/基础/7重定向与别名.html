@@ -3,35 +3,34 @@
 
 <div id="app">
   <h1>Hello App!</h1>
-  <p> 
+  <p>
     <router-link to="/foo">Go to Foo</router-link>
-    <router-link :to="{name:'bar',params:{id:123}}">Go to Bar</router-link> 
+    <router-link :to="{name:'bar',params:{id:123}}">Go to Bar</router-link>
     <router-link to="/redirection1">Go redirection to foo</router-link>
     <router-link to="/redirection2/redirection">Go redirection to link-name:bar</router-link>
   </p> 
-  <router-view></router-view>
+    <router-view></router-view> 
 </div>
 
 <script>
- 
-const Foo = { template: '<div>foo</div>' }
-const Bar = { template: '<div>bar,id:{{$route.params.id}}</div>' }
- 
-const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar/:id',name: 'bar', component: Bar },
-  { path: '/redirection1', redirect: '/foo'},
-  { path: '/redirection2/:id', redirect: { name: 'bar' }}
-]
- 
-const router = new VueRouter({
-  routes 
-})
- 
-const app = new Vue({
-  router
-}).$mount('#app')
- 
+  const Foo = { template: '<div>foo</div>' }
+  const Bar = { template: '<div>bar,id:{{$route.params.id}}</div>' }
+
+  const routes = [
+    { path: '/foo', component: Foo },
+    { path: '/bar/:id', name: 'bar', component: Bar },
+    { path: '/redirection1', redirect: '/foo' },
+    { path: '/redirection2/:id', redirect: { name: 'bar' } }
+  ]
+
+  const router = new VueRouter({
+    routes
+  })
+
+  const app = new Vue({
+    router
+  }).$mount('#app')
+
 </script>
 
 <!-- 别名 -->
