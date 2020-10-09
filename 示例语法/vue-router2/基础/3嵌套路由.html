@@ -1,0 +1,52 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<div id="app">
+    <h1>Hello App!</h1>
+    <p>
+        <router-link to="/user/001">Go to 001</router-link>
+        <router-link to="/user/001/profile">Go to childrenRoute profile</router-link>
+        <router-link to="/user/001/posts">Go to childrenRoute posts</router-link>
+    </p>
+    <router-view></router-view>
+</div>
+
+<script>
+    const User = {
+        template: `<div class="user">
+      <h2>User {{ $route.params.id }}</h2>
+      <router-view></router-view>
+    </div> `
+    }
+    const UserProfile = { template: '<div>Profile</div>' }
+    const UserPosts = { template: '<div>Posts</div>' }
+
+    const routes = [
+        {
+            path: '/user/:id', component: User, 
+            children: [
+                {
+                    // 当 /user/:id/profile 匹配成功，
+                    // UserProfile 会被渲染在 User 的 <router-view> 中
+                    path: 'profile',
+                    component: UserProfile
+                },
+                {
+                    // 当 /user/:id/posts 匹配成功
+                    // UserPosts 会被渲染在 User 的 <router-view> 中
+                    path: 'posts',
+                    component: UserPosts
+                }
+            ]
+        }
+    ]
+
+    const router = new VueRouter({
+        routes
+    })
+
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+</script>

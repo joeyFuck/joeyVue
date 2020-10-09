@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/base_layout.css" />
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+    
+ 
+</head>
+
+<body>
+    <div id="example-3">
+        <button @click="show = !show">
+          Toggle render
+        </button>
+        <transition
+          name="custom-classes-transition"
+          enter-active-class="animated tada"
+          leave-active-class="animated bounceOutRight"
+        >
+          <p v-if="show">hello</p>
+        </transition>
+      </div>
+</body>
+<script type="text/javascript" src="../js/transition.js"></script>
+
+</html>

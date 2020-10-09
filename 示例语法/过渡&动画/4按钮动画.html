@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/base_layout.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <title>Document</title>
+    <style>
+        
+    </style>
+
+</head>
+
+<body>
+    <div id="example-4">
+        <button @click="show = !show">
+          Toggle
+        </button>
+        <transition
+          v-on:before-enter="beforeEnter"
+          v-on:enter="enter"
+          v-on:leave="leave"
+          v-bind:css="false"
+        >
+          <p v-if="show">
+            Demo
+          </p>
+        </transition>
+      </div>
+</body>
+<script type="text/javascript" src="../js/transition.js"></script>
+
+</html>

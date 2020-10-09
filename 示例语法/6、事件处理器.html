@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+		<script src="js/vue.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/base_layout.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<h3>#监听事件</h3>
+			<p>可以用 v-on 指令监听 DOM 事件来触发一些 JavaScript 代码。</p>
+			<button v-on:click="count+=1">点了我{{count}}次</button>
+			<h3>用方法来监听，上面相当于js内联方法</h3>
+			<button v-on:click="greet">点我，打个招呼</button>
+			<p>有时需传参数的同时也需要访问原生 DOM 事件。可以用特殊变量 $event 把它传入方法：</p>
+			<button v-on:click="greet2(count,$event)">点我，再打个招呼</button>
+			<p>这里顺便介绍下原生事件对象的两个事件</p>
+			<h3>event.preventDefault()：</h3>
+			<a href="https://www.baidu.com" v-on:click="toBaidu">会跳到百度？</a>
+			<p>方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）。这里是阻止url跳转</p>
+			<h3>event.stopPropagation():</h3>
+			<div v-on:click="alert(123)">
+				<p v-on:click="alert(234)">段落文本内容 
+					<button v-on:click="greetClick">stopPropagation</button>
+				</p>
+			</div>	
+			<img src="img/5.jpg"/>
+			<p>该方法将停止事件的传播，阻止它被分派到其他 Document 节点。在事件传播的任何阶段都可以调用它。注意，虽然该方法不能阻止同一个 Document 节点上的其他事件句柄被调用，但是它可以阻止把事件分派到其他节点。</p>
+			<p>啥意思呢？就是上文一样，点击自身，自身的事件句柄（比如单击的句柄）依然会调用，alert执行了，但是呢，父元素的alert没执行，也就是说被该事件阻止掉了。</p>
+			
+			
+			<h3>#事件修饰符</h3>
+			<p>
+				在事件处理程序中调用 event.preventDefault() 或 event.stopPropagation() 是非常常见的需求。尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。
+			</p>
+			<img src="img/6.png"/>
+			
+			<h3>#按键修饰符</h3>
+			<p>
+				在监听键盘事件时，我们经常需要监测常见的键值。 Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：
+			</p>
+			<!-- 只有在 keyCode 是 13 时调用 vm.submit() -->
+			<label for="">回车键的keycode为13</label>
+			<input v-on:keyup.13="submit" placeholder="按回车触发submit方法" 	>
+			<br />
+			<label for="">Vue为常用的keyCode提供了别名的方式v-on:keyup.enter 简写@keyup.enter</label>
+			<input type="text" v-on:keyup.enter="submit" placeholder="按回车触发submit方法"/>
+			<br />
+			<img src="img/7.jpg"/>
+			<br />
+			<p>尽量不要用F1这种快捷键，一般这种热键被浏览器占用了</p>
+			<input type="text" v-on:keyup.f1="submit" placeholder="按f1触发submit方法"/>
+			<p></p>
+			<img src="img/8.jpg"/>
+			<br />
+			<label for="input-clean">组合键</label>
+			<input type="text" id="input-clean" @keyup.alt.67="clean('input-clean')" placeholder="alt+c清除文本框内容"/>
+			<label for="input-clean2">结合click</label><input type="text" id="input-clean2" @click.alt="clean('input-clean2')" placeholder="还可以结合其他事件使用"/>
+		</div>
+	</body> 
+	<script type="text/javascript" src="js/demo6.js" ></script>
+</html>

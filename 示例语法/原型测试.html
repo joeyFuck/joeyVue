@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			function Person(name, age){
+			    this.name = name;
+			    this.age = age;
+			}
+			
+			Person.prototype.MaxNumber = 9999;
+			Person.__proto__.MinNumber = -9999;
+			
+			var will = new Person("Will", 28);
+			
+			console.log(will.MaxNumber);
+			// 9999
+			console.log(will.MinNumber);
+			// undefined
+			console.log(will);
+			console.log(Person);
+			console.log(will.__proto__);
+			console.log(Person.prototype === will.__proto__);//true
+			console.log(Person.__proto__);//空原型 （function(){}）
+		</script>
+		
+		
+		
+		<script type="text/javascript">
+			function Person(name, age){
+			    this.name = name;
+			    this.age = age;
+			}
+			
+			Person.prototype.getInfo = function(){
+			    console.log(this.name + " is " + this.age + " years old");
+			};
+			
+			
+			var will = new Person("Will", 28);
+			
+			for(var attr in will){
+			    console.log(attr);
+			}
+			// name
+			// age
+			// getInfo
+			
+			for(var attr in will){
+			    if(will.hasOwnProperty(attr)){
+			        console.log(attr);
+			    }
+			}
+			// name
+			// age
+			console.log(will)
+			//在JavaScript中，原型也是一个对象，通过原型可以实现对象的属性继承，JavaScript的对象中都包含了一个" [[Prototype]]"内部属性，这个属性所对应的就是该对象的原型。
+			//"[[Prototype]]"作为对象的内部属性，是不能被直接访问的。所以为了方便查看一个对象的原型，Firefox和Chrome中提供了"__proto__"这个非标准（不是所有浏览器都支持）的访问器（ECMA引入了标准对象原型访问器"Object.getPrototype(object)"）。
+		</script>
+	</body>
+</html>
